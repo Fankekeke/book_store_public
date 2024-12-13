@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cc.mrbird.febs.cos.dao.FirnitureTypeInfoMapper">
+
+    <!-- 分页获取商品类型信息 -->
+    <select id="selectFirnitureTypePage" resultType="java.util.LinkedHashMap">
+        SELECT
+        *
+        FROM
+        firniture_type_info
+        WHERE
+        1 = 1
+        <if test="firnitureTypeInfo.name != null and firnitureTypeInfo.name != ''">
+            AND name LIKE CONCAT('%',#{firnitureTypeInfo.name},'%')
+        </if>
+        <if test="firnitureTypeInfo.code != null and firnitureTypeInfo.code != ''">
+            AND code LIKE CONCAT('%',#{firnitureTypeInfo.code},'%')
+        </if>
+        <if test="firnitureTypeInfo.remark != null and firnitureTypeInfo.remark != ''">
+            AND remark LIKE CONCAT('%',#{firnitureTypeInfo.remark},'%')
+        </if>
+    </select>
+</mapper>

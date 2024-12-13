@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cc.mrbird.febs.cos.dao.ReplyInfoMapper">
+
+    <!-- 分页获取消息回复信息 -->
+    <select id="selectReplyPage" resultType="java.util.LinkedHashMap">
+        select
+        ri.id,
+        ri.tag_id,
+        ri.user_id,
+        ri.content,
+        ri.post_id,
+        ri.reply_user_id,
+        ri.send_create,
+        ri.delete_flag,
+        si.name as userName,
+        si.images as userImages,
+        poi.title
+        from
+        reply_info ri
+        left join user_info si on
+        (si.id = ri.user_id)
+        left join post_info poi on
+        (poi.id = ri.post_id)
+        where
+        1 = 1
+        <if test="replyInfo.userName != null and replyInfo.userName != ''">
+            AND si.name LIKE CONCAT('%',#{replyInfo.userName},'%')
+        </if>
+        <if test="replyInfo.title != null and replyInfo.title != ''">
+            AND poi.title LIKE CONCAT('%',#{replyInfo.title},'%')
+        </if>
+        <if test="replyInfo.userId != null and replyInfo.userId != ''">
+            AND si.user_id = #{replyInfo.userId}
+        </if>
+        order by
+        send_create desc
+    </select>
+
+    <!-- 获取具体的帖子回复信息 -->
+    <select id="replyListByPostId" resultType="java.util.LinkedHashMap">
+        SELECT
+            ri.id,
+            ri.user_id AS userId,
+            ri.content,
+            ri.post_id AS postId,
+            ri.reply_user_id replyUserId,
+            ri.send_create AS sendCreate,
+            pi.title,
+            tu.name as username,
+            tu.images,
+            tu1.name as replyUserName
+        FROM
+            reply_info ri
+                LEFT JOIN post_info pi ON ( ri.post_id = pi.id )
+                LEFT JOIN user_info tu ON ( tu.id = ri.user_id )
+                LEFT JOIN user_info tu1 ON ( tu1.id = ri.reply_user_id )
+        WHERE
+            ri.delete_flag = 0
+          AND ri.post_id = #{ postId }
+        ORDER BY
+            ri.send_create ASC
+    </select>
+</mapper>

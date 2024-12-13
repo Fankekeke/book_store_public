@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cc.mrbird.febs.cos.dao.PostInfoMapper">
+
+    <!-- 分页获取贴子信息 -->
+    <select id="selectPostPage" resultType="java.util.LinkedHashMap">
+        select
+        pi.id,
+        pi.title,
+        pi.content,
+        pi.images,
+        pi.user_id,
+        pi.create_date,
+        pi.pageviews,
+        pi.tag_ids,
+        pi.delete_flag,
+        si.name as userName,
+        si.images as userImages,
+        group_concat( ti.NAME ) as tagName
+        from
+        post_info pi
+        left join user_info si on
+        (si.id = pi.user_id)
+        LEFT JOIN tag_info ti ON FIND_IN_SET(ti.id , pi.tag_ids)
+        where
+        1 = 1
+        <if test="postInfo.userName != null and postInfo.userName != ''">
+            AND si.name LIKE CONCAT('%',#{postInfo.userName},'%')
+        </if>
+        <if test="postInfo.title != null and postInfo.title != ''">
+            AND pi.title LIKE CONCAT('%',#{postInfo.title},'%')
+        </if>
+        <if test="postInfo.tagId != null and postInfo.tagId != ''">
+            AND pi.tag_ids LIKE CONCAT('%',#{postInfo.tagId},'%')
+        </if>
+        <if test="postInfo.userId != null and postInfo.userId != ''">
+            AND si.user_id = #{postInfo.userId}
+        </if>
+        group by pi.id
+        order by
+        pi.create_date desc
+    </select>
+
+    <!-- 分页获取帖子信息 -->
+    <select id="postInfoByPage" resultType="java.util.LinkedHashMap">
+        SELECT
+        pi.id,
+        pi.title,
+        pi.content,
+        pi.images,
+        pi.user_id AS userId,
+        pi.create_date AS createDate,
+        pi.pageviews,
+        pi.tag_ids AS tagIds,
+        pi.delete_flag AS deleteFlag,
+        tu.name as username,
+        tu.images AS userImages,
+        IFNULL(SUM(ri.post_id), 0) AS reply
+        FROM
+        post_info pi
+        LEFT JOIN user_info tu ON ( tu.id = pi.user_id )
+        LEFT JOIN reply_info ri ON ( ri.post_id = pi.id ) AND ri.delete_flag = 0
+        WHERE
+        1 = 1
+        <if test="postInfo.title != null and postInfo.title != ''">
+            AND pi.title LIKE CONCAT('%',#{postInfo.title},'%')
+        </if>
+        <if test="postInfo.username != null and postInfo.username != ''">
+            AND ui.name LIKE CONCAT('%',#{postInfo.username},'%')
+        </if>
+        <if test="postInfo.tagId != null">
+            AND FIND_IN_SET(#{ postInfo.tagId }, pi.tag_ids)
+        </if>
+        <if test="postInfo.userId != null">
+            AND pi.user_id = #{postInfo.userId}
+        </if>
+        GROUP BY pi.id
+        ORDER BY pi.create_date DESC
+    </select>
+
+    <!-- 获取模块下的贴子 -->
+    <select id="getPostByTag" resultType="java.util.LinkedHashMap">
+        SELECT
+            pi.id,
+            pi.title,
+            pi.content,
+            pi.images,
+            pi.user_id AS userId,
+            pi.create_date AS createDate,
+            pi.pageviews,
+            pi.tag_ids AS tagIds,
+            pi.delete_flag AS deleteFlag,
+            tu.name as username,
+            tu.images as userImages,
+            IFNULL(COUNT(ri.id), 0) AS reply
+        FROM
+            post_info pi
+                LEFT JOIN user_info tu ON ( tu.id = pi.user_id )
+                LEFT JOIN reply_info ri ON ( ri.post_id = pi.id ) AND ri.delete_flag = 0
+        WHERE
+            pi.delete_flag = 0
+          AND FIND_IN_SET(#{ tagId }, pi.tag_ids)
+        GROUP BY pi.id
+        ORDER BY pi.create_date DESC
+    </select>
+
+    <select id="postDetail" resultType="java.util.LinkedHashMap">
+        SELECT
+            pi.id,
+            pi.title,
+            pi.content,
+            pi.images,
+            pi.user_id AS userId,
+            pi.create_date AS createDate,
+            pi.pageviews,
+            pi.tag_ids AS tagIds,
+            pi.delete_flag AS deleteFlag,
+            tu.name as username,
+            tu.images as userImages,
+            IFNULL(COUNT(ri.id), 0) AS reply
+        FROM
+            post_info pi
+                LEFT JOIN user_info tu ON ( tu.id = pi.user_id )
+                LEFT JOIN reply_info ri ON ( ri.post_id = pi.id ) AND ri.delete_flag = 0
+        WHERE
+            pi.id = #{ postId }
+    </select>
+</mapper>

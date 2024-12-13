@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cc.mrbird.febs.cos.dao.CollectInfoMapper">
+
+    <!-- 分页获取商品收藏信息 -->
+    <select id="selectCollectPage" resultType="java.util.LinkedHashMap">
+        SELECT ci.*,
+        di.NAME AS firnitureName,
+        di.images AS firnitureImages,
+        di.portion,
+        fti.NAME AS typeName,
+        ui.NAME AS userName,
+        ui.images AS userImages,
+        mi.NAME AS merchantName,
+        mi.images AS merchantImages
+        from collect_info ci
+        LEFT JOIN user_info ui
+        ON ( ui.id = ci.user_id )
+        LEFT JOIN dishes_info di ON ( di.id = ci.furniture_id )
+        LEFT JOIN merchant_info mi ON ( mi.id = ci.merchant_id )
+        LEFT JOIN firniture_type_info fti ON ( fti.id = di.type_id )
+        WHERE
+        1 = 1
+        <if test="collectInfo.userName != null and collectInfo.userName != ''">
+            AND ui.name LIKE CONCAT('%',#{collectInfo.userName},'%')
+        </if>
+        <if test="collectInfo.typeName != null and collectInfo.typeName != ''">
+            AND fti.NAME LIKE CONCAT('%',#{collectInfo.typeName},'%')
+        </if>
+        <if test="collectInfo.firnitureName != null and collectInfo.firnitureName != ''">
+            AND di.NAME LIKE CONCAT('%',#{collectInfo.firnitureName},'%')
+        </if>
+        ORDER BY
+        ci.create_date DESC
+    </select>
+</mapper>
