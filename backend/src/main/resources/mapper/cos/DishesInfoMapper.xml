@@ -23,6 +23,8 @@
         di.fat,
         di.lave_num,
         di.type_id,
+        di.isbn,
+        di.author,
         mi.name as merchantName,
         mi.principal,
         mi.phone,

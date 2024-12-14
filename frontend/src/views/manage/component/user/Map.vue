@@ -14,7 +14,7 @@
         <a-col :span="15" style="height: 100%;">
           <div style="width: 100%;height: 100%;box-shadow: 3px 3px 3px rgba(0, 0, 0, .2);color:#fff">
             <a-row :gutter="20" style="padding: 50px">
-              <a-col :span="12" v-for="(item, index) in dishesList" :key="index" style="margin-bottom: 15px">
+              <a-col :span="8" v-for="(item, index) in dishesList" :key="index" style="margin-bottom: 15px">
                 <div style="width: 100%;margin-bottom: 15px;text-align: left;box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;">
                   <a-card :bordered="false" hoverable>
                     <a-carousel autoplay style="height: 150px;" v-if="item.images !== undefined && item.images !== ''">

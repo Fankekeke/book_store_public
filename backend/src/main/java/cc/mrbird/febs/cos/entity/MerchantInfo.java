@@ -112,11 +112,6 @@ public class MerchantInfo implements Serializable {
     private String status;
 
     /**
-     * 所属社区
-     */
-    private Integer communityId;
-
-    /**
      * 营业星期
      */
     @TableField(exist = false)

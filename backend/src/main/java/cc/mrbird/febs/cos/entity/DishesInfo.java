@@ -114,6 +114,16 @@ public class DishesInfo implements Serializable {
      */
     private Integer typeId;
 
+    /**
+     * 作者
+     */
+    private String author;
+
+    /**
+     * ISBN
+     */
+    private String isbn;
+
     @TableField(exist = false)
     private String merchantName;
 
