@@ -8,6 +8,7 @@ import cc.mrbird.febs.cos.entity.UserInfo;
 import cc.mrbird.febs.cos.service.IDishesInfoService;
 import cc.mrbird.febs.cos.service.IMerchantInfoService;
 import cn.hutool.core.date.DateUtil;
+import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import lombok.RequiredArgsConstructor;
@@ -56,6 +57,23 @@ public class DishesInfoController {
             return R.ok(Collections.emptyList());
         }
         return R.ok(dishesInfoService.list(Wrappers.<DishesInfo>lambdaQuery().eq(DishesInfo::getMerchantId, merchantInfo.getId()).eq(DishesInfo::getStatus, "1")));
+    }
+
+    /**
+     * 根据商家获取图书信息
+     *
+     * @param bookName 图书名称
+     * @return 结果
+     */
+    @GetMapping("/selectBookByMerchant")
+    public R selectBookByMerchant(@RequestParam(value = "bookName", required = false) String bookName, @RequestParam("merchantUserId") Integer merchantUserId) {
+        // 获取所属商家
+        MerchantInfo merchantInfo = merchantInfoService.getOne(Wrappers.<MerchantInfo>lambdaQuery().eq(MerchantInfo::getId, merchantUserId));
+        if (merchantInfo == null) {
+            return R.ok(Collections.emptyList());
+        }
+        return R.ok(dishesInfoService.list(Wrappers.<DishesInfo>lambdaQuery().eq(DishesInfo::getMerchantId, merchantInfo.getId()).eq(DishesInfo::getStatus, "1")
+                .like(StrUtil.isNotEmpty(bookName), DishesInfo::getTitle, bookName)));
     }
 
     /**

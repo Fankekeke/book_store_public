@@ -114,15 +114,76 @@ public class DishesInfo implements Serializable {
      */
     private Integer typeId;
 
+
     /**
-     * 作者
+     * 作者姓名
      */
     private String author;
 
     /**
-     * ISBN
+     * 图书的ISBN号，用于唯一标识一本书
      */
     private String isbn;
+
+    /**
+     * 图书的标题
+     */
+    private String title;
+
+    /**
+     * 作者的简介
+     */
+    private String authorIntro;
+
+    /**
+     * 图书的标签，用于分类或标识图书的主题
+     */
+    private String tag;
+
+    /**
+     * 评价人数
+     */
+    private String numraters;
+
+    /**
+     * 平均评分
+     */
+    private String average;
+
+    /**
+     * 图书的装帧类型
+     */
+    private String binding;
+
+    /**
+     * 图书的页数
+     */
+    private String pages;
+
+    /**
+     * 出版社名称
+     */
+    private String publisher;
+
+    /**
+     * 原作标题，对于翻译书籍，可能与实际标题不同
+     */
+    private String originTitle;
+
+    /**
+     * 图书详情页面的URL
+     */
+    private String url;
+
+    /**
+     * 图书封面图片的URL
+     */
+    private String image;
+
+    /**
+     * 图书的摘要或简介
+     */
+    private String summary;
 
     @TableField(exist = false)
     private String merchantName;
