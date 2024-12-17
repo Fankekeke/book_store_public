@@ -15,16 +15,16 @@ import java.util.List;
 public interface ICollectInfoService extends IService<CollectInfo> {
 
     /**
-     * 分页获取商品收藏信息
+     * 分页获取图书收藏信息
      *
      * @param page        分页对象
-     * @param collectInfo 商品收藏信息
+     * @param collectInfo 图书收藏信息
      * @return 结果
      */
     IPage<LinkedHashMap<String, Object>> selectCollectPage(Page<CollectInfo> page, CollectInfo collectInfo);
 
     /**
-     * 根据用户ID获取收藏商品信息
+     * 根据用户ID获取收藏图书信息
      *
      * @param userId 用户ID
      * @return 结果

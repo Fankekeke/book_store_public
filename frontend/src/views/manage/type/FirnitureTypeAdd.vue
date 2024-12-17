@@ -1,5 +1,5 @@
 <template>
-  <a-modal v-model="show" title="新增商品类型" @cancel="onClose" :width="800">
+  <a-modal v-model="show" title="新增图书类型" @cancel="onClose" :width="800">
     <template slot="footer">
       <a-button key="back" @click="onClose">
         取消
@@ -11,10 +11,10 @@
     <a-form :form="form" layout="vertical">
       <a-row :gutter="20">
         <a-col :span="12">
-          <a-form-item label='商品类型名称' v-bind="formItemLayout">
+          <a-form-item label='图书类型名称' v-bind="formItemLayout">
             <a-input v-decorator="[
             'name',
-            { rules: [{ required: true, message: '请输入商品类型名称!' }] }
+            { rules: [{ required: true, message: '请输入图书类型名称!' }] }
             ]"/>
           </a-form-item>
         </a-col>
@@ -23,28 +23,6 @@
             <a-textarea :rows="6" v-decorator="[
             'remark'
             ]"/>
-          </a-form-item>
-        </a-col>
-        <a-col :span="24">
-          <a-form-item label='照片' v-bind="formItemLayout">
-            <a-upload
-              name="avatar"
-              action="http://127.0.0.1:9527/file/fileUpload/"
-              list-type="picture-card"
-              :file-list="fileList"
-              @preview="handlePreview"
-              @change="picHandleChange"
-            >
-              <div v-if="fileList.length < 1">
-                <a-icon type="plus" />
-                <div class="ant-upload-text">
-                  Upload
-                </div>
-              </div>
-            </a-upload>
-            <a-modal :visible="previewVisible" :footer="null" @cancel="handleCancel">
-              <img alt="example" style="width: 100%" :src="previewImage" />
-            </a-modal>
           </a-form-item>
         </a-col>
       </a-row>

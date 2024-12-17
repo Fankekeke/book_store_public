@@ -14,10 +14,10 @@ import java.util.LinkedHashMap;
 public interface CollectInfoMapper extends BaseMapper<CollectInfo> {
 
     /**
-     * 分页获取商品收藏信息
+     * 分页获取图书收藏信息
      *
      * @param page        分页对象
-     * @param collectInfo 商品收藏信息
+     * @param collectInfo 图书收藏信息
      * @return 结果
      */
     IPage<LinkedHashMap<String, Object>> selectCollectPage(Page<CollectInfo> page, @Param("collectInfo") CollectInfo collectInfo);

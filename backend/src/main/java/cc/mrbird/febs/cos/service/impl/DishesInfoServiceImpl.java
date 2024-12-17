@@ -17,10 +17,10 @@ import java.util.LinkedHashMap;
 public class DishesInfoServiceImpl extends ServiceImpl<DishesInfoMapper, DishesInfo> implements IDishesInfoService {
 
     /**
-     * 分页获取商品信息
+     * 分页获取图书信息
      *
      * @param page       分页对象
-     * @param dishesInfo 商品信息
+     * @param dishesInfo 图书信息
      * @return 结果
      */
     @Override

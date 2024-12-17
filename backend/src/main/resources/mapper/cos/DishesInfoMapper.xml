@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cc.mrbird.febs.cos.dao.DishesInfoMapper">
 
-    <!-- 分页获取商品信息 -->
+    <!-- 分页获取图书信息 -->
     <select id="selectDishesPage" resultType="java.util.LinkedHashMap">
         select
         di.id,
@@ -23,8 +23,22 @@
         di.fat,
         di.lave_num,
         di.type_id,
+
         di.isbn,
+        di.title,
         di.author,
+        di.author_intro,
+        di.tag,
+        di.numraters,
+        di.average,
+        di.binding,
+        di.pages,
+        di.publisher,
+        di.origin_title,
+        di.url,
+        di.image,
+        di.summary,
+
         mi.name as merchantName,
         mi.principal,
         mi.phone,

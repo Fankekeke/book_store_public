@@ -10,7 +10,7 @@ import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
 /**
- * 商品类型
+ * 图书类型
  *
  * @author FanK
  */

@@ -29,7 +29,7 @@ public class OrderItemInfo implements Serializable {
     private Integer id;
 
     /**
-     * 商品ID
+     * 图书ID
      */
     private Integer dishesId;
 
@@ -54,13 +54,13 @@ public class OrderItemInfo implements Serializable {
     private Integer orderId;
 
     /**
-     * 商品名称
+     * 图书名称
      */
     @TableField(exist = false)
     private String dishesName;
 
     /**
-     * 商品图片
+     * 图书图片
      */
     @TableField(exist = false)
     private String images;

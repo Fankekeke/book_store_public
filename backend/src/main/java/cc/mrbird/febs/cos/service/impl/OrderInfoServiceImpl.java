@@ -300,7 +300,7 @@ public class OrderInfoServiceImpl extends ServiceImpl<OrderInfoMapper, OrderInfo
 
         // 订单详情
         List<OrderItemInfo> orderItemInfoList = orderItemInfoService.list(Wrappers.<OrderItemInfo>lambdaQuery().eq(OrderItemInfo::getOrderId, orderInfo.getId()));
-        // 获取商品信息
+        // 获取图书信息
         List<Integer> dishesIds = orderItemInfoList.stream().map(OrderItemInfo::getDishesId).distinct().collect(Collectors.toList());
         List<DishesInfo> dishesInfoList = dishesInfoService.list(Wrappers.<DishesInfo>lambdaQuery().in(DishesInfo::getId, dishesIds));
         Map<Integer, DishesInfo> dishesMap = dishesInfoList.stream().collect(Collectors.toMap(DishesInfo::getId, e -> e));
@@ -356,7 +356,7 @@ public class OrderInfoServiceImpl extends ServiceImpl<OrderInfoMapper, OrderInfo
         }
 
         List<Integer> merchantIds = merchantList.stream().map(MerchantInfo::getId).collect(Collectors.toList());
-        // 根据商家获取商品
+        // 根据商家获取图书
         List<DishesInfo> dishesList = dishesInfoService.list(Wrappers.<DishesInfo>lambdaQuery().in(DishesInfo::getMerchantId, merchantIds));
         Map<Integer, List<DishesInfo>> dishesMap = dishesList.stream().collect(Collectors.groupingBy(DishesInfo::getMerchantId));
 
@@ -367,7 +367,7 @@ public class OrderInfoServiceImpl extends ServiceImpl<OrderInfoMapper, OrderInfo
                 continue;
             }
 
-            // 根据商家获取商品
+            // 根据商家获取图书
             List<DishesInfo> dishesInfoList = dishesMap.get(merchantInfo.getId());
             if (CollectionUtil.isEmpty(dishesInfoList)) {
                 merchantInfo.setCurrentStatus("0");
@@ -442,7 +442,7 @@ public class OrderInfoServiceImpl extends ServiceImpl<OrderInfoMapper, OrderInfo
 
         // 订单详情
         List<OrderItemInfo> orderItemInfoList = orderItemInfoService.list(Wrappers.<OrderItemInfo>lambdaQuery().eq(OrderItemInfo::getOrderId, orderInfo.getId()));
-        // 获取商品信息
+        // 获取图书信息
         List<Integer> dishesIds = orderItemInfoList.stream().map(OrderItemInfo::getDishesId).distinct().collect(Collectors.toList());
         List<DishesInfo> dishesInfoList = dishesInfoService.list(Wrappers.<DishesInfo>lambdaQuery().in(DishesInfo::getId, dishesIds));
         Map<Integer, DishesInfo> dishesMap = dishesInfoList.stream().collect(Collectors.toMap(DishesInfo::getId, e -> e));
@@ -521,7 +521,7 @@ public class OrderInfoServiceImpl extends ServiceImpl<OrderInfoMapper, OrderInfo
                     MerchantInfo merchantInfo = merchantInfoService.getById(orderInfo.getMerchantId());
                     Context context = new Context();
                     context.setVariable("today", DateUtil.formatDate(new Date()));
-                    context.setVariable("custom", userInfo.getName() + "，您好，在 " + merchantInfo.getName() + " 您已消费 " + memberInfo.getIntegral() + "元。获得此店会员资格（所有商品消费八折）");
+                    context.setVariable("custom", userInfo.getName() + "，您好，在 " + merchantInfo.getName() + " 您已消费 " + memberInfo.getIntegral() + "元。获得此店会员资格（所有图书消费八折）");
                     String emailContent = templateEngine.process("registerEmail", context);
                     mailService.sendHtmlMail(userInfo.getMail(), DateUtil.formatDate(new Date()) + "会员通知", emailContent);
                 }

@@ -11,7 +11,7 @@ import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
 /**
- * 商品收藏
+ * 图书收藏
  *
  * @author FanK
  */
@@ -34,7 +34,7 @@ public class CollectInfo implements Serializable {
     private Integer userId;
 
     /**
-     * 商品ID
+     * 图书ID
      */
     private Integer furnitureId;
 

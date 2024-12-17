@@ -17,7 +17,7 @@ public class AlipayBean {
      */
     private String total_amount;
     /**
-     * 商品描述，可空
+     * 图书描述，可空
      */
     private String body;
     /**

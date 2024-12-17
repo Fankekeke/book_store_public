@@ -1,5 +1,5 @@
 <template>
-  <a-modal v-model="show" title="商品详情" @cancel="onClose" :width="1000">
+  <a-modal v-model="show" title="图书详情" @cancel="onClose" :width="1000">
     <template slot="footer">
       <a-button key="back" @click="onClose" type="danger">
         关闭
@@ -8,10 +8,10 @@
     <div style="font-size: 13px;font-family: SimHei" v-if="dishesData !== null">
       <a-row style="padding-left: 24px;padding-right: 24px;">
         <a-col style="margin-bottom: 15px"><span style="font-size: 15px;font-weight: 650;color: #000c17">基础信息</span></a-col>
-        <a-col :span="8"><b>商品编号：</b>
+        <a-col :span="8"><b>图书编号：</b>
           {{ dishesData.code }}
         </a-col>
-        <a-col :span="8"><b>商品名称：</b>
+        <a-col :span="8"><b>图书名称：</b>
           {{ dishesData.name ? dishesData.name : '- -' }}
         </a-col>
         <a-col :span="8"><b>原料：</b>
@@ -23,7 +23,7 @@
         <a-col :span="8"><b>型号：</b>
           {{ dishesData.portion }}
         </a-col>
-        <a-col :span="8"><b>商品余量：</b>
+        <a-col :span="8"><b>图书余量：</b>
           {{ dishesData.laveNum }}
         </a-col>
         <a-col :span="8"><b>价格：</b>
@@ -57,7 +57,7 @@
       </a-row>
       <br/>
       <a-row style="padding-left: 24px;padding-right: 24px;">
-        <a-col :span="8"><b>商品类型：</b>
+        <a-col :span="8"><b>图书类型：</b>
           {{ dishesData.typeName }}
         </a-col>
       </a-row>

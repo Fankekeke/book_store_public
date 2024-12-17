@@ -30,10 +30,10 @@ public class CollectInfoController {
     private final IUserInfoService userInfoService;
 
     /**
-     * 分页获取商品收藏信息
+     * 分页获取图书收藏信息
      *
      * @param page        分页对象
-     * @param collectInfo 商品收藏信息
+     * @param collectInfo 图书收藏信息
      * @return 结果
      */
     @GetMapping("/page")
@@ -42,7 +42,7 @@ public class CollectInfoController {
     }
 
     /**
-     * 根据用户ID获取收藏商品信息
+     * 根据用户ID获取收藏图书信息
      *
      * @param userId     用户ID
      * @param merchantId 商家ID
@@ -59,7 +59,7 @@ public class CollectInfoController {
     }
 
     /**
-     * 根据用户ID获取收藏商品信息
+     * 根据用户ID获取收藏图书信息
      *
      * @param userId 用户ID
      * @return 结果
@@ -70,7 +70,7 @@ public class CollectInfoController {
     }
 
     /**
-     * 获取ID获取商品收藏详情
+     * 获取ID获取图书收藏详情
      *
      * @param id 主键
      * @return 结果
@@ -81,7 +81,7 @@ public class CollectInfoController {
     }
 
     /**
-     * 获取商品收藏信息列表
+     * 获取图书收藏信息列表
      *
      * @return 结果
      */
@@ -91,9 +91,9 @@ public class CollectInfoController {
     }
 
     /**
-     * 新增商品收藏信息
+     * 新增图书收藏信息
      *
-     * @param collectInfo 商品收藏信息
+     * @param collectInfo 图书收藏信息
      * @return 结果
      */
     @PostMapping
@@ -108,9 +108,9 @@ public class CollectInfoController {
     }
 
     /**
-     * 修改商品收藏信息
+     * 修改图书收藏信息
      *
-     * @param collectInfo 商品收藏信息
+     * @param collectInfo 图书收藏信息
      * @return 结果
      */
     @PutMapping
@@ -119,10 +119,10 @@ public class CollectInfoController {
     }
 
     /**
-     * 删除商品收藏信息
+     * 删除图书收藏信息
      *
      * @param ids ids
-     * @return 商品收藏信息
+     * @return 图书收藏信息
      */
     @DeleteMapping("/{ids}")
     public R deleteByIds(@PathVariable("ids") List<Integer> ids) {
@@ -130,9 +130,9 @@ public class CollectInfoController {
     }
 
     /**
-     * 删除商品收藏信息
+     * 删除图书收藏信息
      *
-     * @return 商品收藏信息
+     * @return 图书收藏信息
      */
     @DeleteMapping("/deleteById")
     public R deleteById(Integer userId, Integer furnitureId, Integer merchantId) {

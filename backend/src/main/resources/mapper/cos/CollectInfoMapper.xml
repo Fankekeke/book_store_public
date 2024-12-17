@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cc.mrbird.febs.cos.dao.CollectInfoMapper">
 
-    <!-- 分页获取商品收藏信息 -->
+    <!-- 分页获取图书收藏信息 -->
     <select id="selectCollectPage" resultType="java.util.LinkedHashMap">
         SELECT ci.*,
         di.NAME AS firnitureName,

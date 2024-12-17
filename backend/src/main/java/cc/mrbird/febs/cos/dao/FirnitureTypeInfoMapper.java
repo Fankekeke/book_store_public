@@ -14,10 +14,10 @@ import java.util.LinkedHashMap;
 public interface FirnitureTypeInfoMapper extends BaseMapper<FirnitureTypeInfo> {
 
     /**
-     * 分页获取商品类型信息
+     * 分页获取图书类型信息
      *
      * @param page              分页对象
-     * @param firnitureTypeInfo 商品类型信息
+     * @param firnitureTypeInfo 图书类型信息
      * @return 结果
      */
     IPage<LinkedHashMap<String, Object>> selectFirnitureTypePage(Page<FirnitureTypeInfo> page, @Param("firnitureTypeInfo") FirnitureTypeInfo firnitureTypeInfo);

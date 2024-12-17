@@ -126,25 +126,13 @@ export default {
     }),
     columns () {
       return [{
-        title: '商品类型编号',
+        title: '图书类型编号',
         dataIndex: 'code',
         ellipsis: true
       }, {
-        title: '商品类型名称',
+        title: '图书类型名称',
         dataIndex: 'name',
         ellipsis: true
-      }, {
-        title: '类型图片',
-        dataIndex: 'images',
-        customRender: (text, record, index) => {
-          if (!record.images) return <a-avatar shape="square" icon="user" />
-          return <a-popover>
-            <template slot="content">
-              <a-avatar shape="square" size={132} icon="user" src={ 'http://127.0.0.1:9527/imagesWeb/' + record.images.split(',')[0] } />
-            </template>
-            <a-avatar shape="square" icon="user" src={ 'http://127.0.0.1:9527/imagesWeb/' + record.images.split(',')[0] } />
-          </a-popover>
-        }
       }, {
         title: '备注',
         dataIndex: 'remark',
@@ -192,7 +180,7 @@ export default {
     },
     handlefirnitureTypeAddSuccess () {
       this.firnitureTypeAdd.visiable = false
-      this.$message.success('新增商品类型成功')
+      this.$message.success('新增图书类型成功')
       this.search()
     },
     edit (record) {
@@ -204,7 +192,7 @@ export default {
     },
     handlefirnitureTypeEditSuccess () {
       this.firnitureTypeEdit.visiable = false
-      this.$message.success('修改商品类型成功')
+      this.$message.success('修改图书类型成功')
       this.search()
     },
     handleDeptChange (value) {

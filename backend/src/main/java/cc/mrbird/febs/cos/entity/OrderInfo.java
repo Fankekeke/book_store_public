@@ -112,7 +112,7 @@ public class OrderInfo implements Serializable {
     private Integer staffId;
 
     /**
-     * 订单商品
+     * 订单图书
      */
     @TableField(exist = false)
     List<OrderItemInfo> orderItemList;

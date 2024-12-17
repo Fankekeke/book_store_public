@@ -27,7 +27,7 @@ public interface MerchantInfoMapper extends BaseMapper<MerchantInfo> {
      * 根据商家获取订单评价信息
      *
      * @param merchantId 商家ID
-     * @param dishesId   商品ID
+     * @param dishesId   图书ID
      * @return 结果
      */
     List<LinkedHashMap<String, Object>> selectEvaluateByMerchant(@Param("merchantId") Integer merchantId, @Param("dishesId") Integer dishesId);

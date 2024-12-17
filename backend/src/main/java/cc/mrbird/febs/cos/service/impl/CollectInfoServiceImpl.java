@@ -34,10 +34,10 @@ public class CollectInfoServiceImpl extends ServiceImpl<CollectInfoMapper, Colle
     private final IMerchantInfoService merchantInfoService;
 
     /**
-     * 分页获取商品收藏信息
+     * 分页获取图书收藏信息
      *
      * @param page        分页对象
-     * @param collectInfo 商品收藏信息
+     * @param collectInfo 图书收藏信息
      * @return 结果
      */
     @Override
@@ -46,7 +46,7 @@ public class CollectInfoServiceImpl extends ServiceImpl<CollectInfoMapper, Colle
     }
 
     /**
-     * 根据用户ID获取收藏商品信息
+     * 根据用户ID获取收藏图书信息
      *
      * @param userId 用户ID
      * @return 结果
@@ -59,7 +59,7 @@ public class CollectInfoServiceImpl extends ServiceImpl<CollectInfoMapper, Colle
             return Collections.emptyList();
         }
 
-        // 获取用户收藏商品信息
+        // 获取用户收藏图书信息
         List<CollectInfo> collectInfoList = this.list(Wrappers.<CollectInfo>lambdaQuery().eq(CollectInfo::getUserId, userInfo.getId()));
         List<Integer> furnitureIds = collectInfoList.stream().map(CollectInfo::getFurnitureId).distinct().collect(Collectors.toList());
         List<Integer> merchantIds = collectInfoList.stream().map(CollectInfo::getMerchantId).distinct().collect(Collectors.toList());
