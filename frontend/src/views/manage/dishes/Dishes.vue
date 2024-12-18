@@ -135,8 +135,8 @@ export default {
         dataIndex: 'name',
         ellipsis: true
       }, {
-        title: '图书类型',
-        dataIndex: 'typeName',
+        title: '装帧类型',
+        dataIndex: 'binding',
         customRender: (text, row, index) => {
           if (text !== null) {
             return text
@@ -181,8 +181,8 @@ export default {
           </a-popover>
         }
       }, {
-        title: '原料',
-        dataIndex: 'rawMaterial',
+        title: '作者姓名',
+        dataIndex: 'author',
         customRender: (text, row, index) => {
           if (text !== null) {
             return text
@@ -192,8 +192,8 @@ export default {
         },
         ellipsis: true
       }, {
-        title: '型号',
-        dataIndex: 'portion',
+        title: 'ISBN号',
+        dataIndex: 'isbn',
         customRender: (text, row, index) => {
           if (text !== null) {
             return text
@@ -237,8 +237,9 @@ export default {
           }
         }
       }, {
-        title: '销量',
-        dataIndex: 'saleNum',
+        title: '图书标签',
+        dataIndex: 'tag',
+        ellipsis: true,
         customRender: (text, row, index) => {
           if (text !== null) {
             return text
