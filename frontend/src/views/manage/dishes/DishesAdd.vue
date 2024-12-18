@@ -74,8 +74,7 @@
         <a-col :span="12">
           <a-form-item label='图书标签' v-bind="formItemLayout">
             <a-input v-decorator="[
-            'tag',
-            { rules: [{ required: true, message: '请输入图书标签!' }] }
+            'tag'
             ]"/>
           </a-form-item>
         </a-col>

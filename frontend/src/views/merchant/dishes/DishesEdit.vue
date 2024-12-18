@@ -19,18 +19,18 @@
           </a-form-item>
         </a-col>
         <a-col :span="12">
-          <a-form-item label='原料' v-bind="formItemLayout">
+          <a-form-item label='作者姓名' v-bind="formItemLayout">
             <a-input v-decorator="[
-            'rawMaterial',
-            { rules: [{ required: true, message: '请输入原料!' }] }
+            'author',
+            { rules: [{ required: true, message: '请输入作者姓名!' }] }
             ]"/>
           </a-form-item>
         </a-col>
         <a-col :span="12">
-          <a-form-item label='型号' v-bind="formItemLayout">
+          <a-form-item label='ISBN号' v-bind="formItemLayout">
             <a-input v-decorator="[
-            'portion',
-            { rules: [{ required: true, message: '请输入型号!' }] }
+            'isbn',
+            { rules: [{ required: true, message: '请输入ISBN号!' }] }
             ]"/>
           </a-form-item>
         </a-col>
@@ -71,36 +71,105 @@
             </a-select>
           </a-form-item>
         </a-col>
-        <a-col :span="24">
-          <a-form-item label='图书描述' v-bind="formItemLayout">
-            <a-textarea :rows="6" v-decorator="[
-            'content',
-             { rules: [{ required: true, message: '请输入图书描述!' }] }
+        <a-col :span="12">
+          <a-form-item label='图书标签' v-bind="formItemLayout">
+            <a-input v-decorator="[
+            'tag'
+            ]"/>
+          </a-form-item>
+        </a-col>
+        <a-col :span="12">
+          <a-form-item label='评价人数' v-bind="formItemLayout">
+            <a-input v-decorator="[
+            'numraters'
+            ]"/>
+          </a-form-item>
+        </a-col>
+        <a-col :span="12">
+          <a-form-item label='平均评分' v-bind="formItemLayout">
+            <a-input v-decorator="[
+            'average'
+            ]"/>
+          </a-form-item>
+        </a-col>
+        <a-col :span="12">
+          <a-form-item label='装帧类型' v-bind="formItemLayout">
+            <a-input v-decorator="[
+            'binding'
+            ]"/>
+          </a-form-item>
+        </a-col>
+        <a-col :span="12">
+          <a-form-item label='图书页数' v-bind="formItemLayout">
+            <a-input v-decorator="[
+            'pages'
+            ]"/>
+          </a-form-item>
+        </a-col>
+        <a-col :span="12">
+          <a-form-item label='出版社名称' v-bind="formItemLayout">
+            <a-input v-decorator="[
+            'publisher'
+            ]"/>
+          </a-form-item>
+        </a-col>
+        <a-col :span="12">
+          <a-form-item label='原作标题' v-bind="formItemLayout">
+            <a-input v-decorator="[
+            'originTitle'
+            ]"/>
+          </a-form-item>
+        </a-col>
+        <a-col :span="12">
+          <a-form-item label='图书详情' v-bind="formItemLayout">
+            <a-input v-decorator="[
+            'url'
+            ]"/>
+          </a-form-item>
+        </a-col>
+        <a-col :span="12">
+          <a-form-item label='图书封面' v-bind="formItemLayout">
+            <a-input v-decorator="[
+            'image'
             ]"/>
           </a-form-item>
         </a-col>
         <a-col :span="24">
-          <a-form-item label='图册' v-bind="formItemLayout">
-            <a-upload
-              name="avatar"
-              action="http://127.0.0.1:9527/file/fileUpload/"
-              list-type="picture-card"
-              :file-list="fileList"
-              @preview="handlePreview"
-              @change="picHandleChange"
-            >
-              <div v-if="fileList.length < 8">
-                <a-icon type="plus" />
-                <div class="ant-upload-text">
-                  Upload
-                </div>
-              </div>
-            </a-upload>
-            <a-modal :visible="previewVisible" :footer="null" @cancel="handleCancel">
-              <img alt="example" style="width: 100%" :src="previewImage" />
-            </a-modal>
+          <a-form-item label='作者简介' v-bind="formItemLayout">
+            <a-textarea :rows="6" v-decorator="[
+            'authorIntro'
+            ]"/>
           </a-form-item>
         </a-col>
+        <a-col :span="24">
+          <a-form-item label='图书描述' v-bind="formItemLayout">
+            <a-textarea :rows="6" v-decorator="[
+            'summary'
+            ]"/>
+          </a-form-item>
+        </a-col>
+<!--        <a-col :span="24">-->
+<!--          <a-form-item label='图册' v-bind="formItemLayout">-->
+<!--            <a-upload-->
+<!--              name="avatar"-->
+<!--              action="http://127.0.0.1:9527/file/fileUpload/"-->
+<!--              list-type="picture-card"-->
+<!--              :file-list="fileList"-->
+<!--              @preview="handlePreview"-->
+<!--              @change="picHandleChange"-->
+<!--            >-->
+<!--              <div v-if="fileList.length < 8">-->
+<!--                <a-icon type="plus" />-->
+<!--                <div class="ant-upload-text">-->
+<!--                  Upload-->
+<!--                </div>-->
+<!--              </div>-->
+<!--            </a-upload>-->
+<!--            <a-modal :visible="previewVisible" :footer="null" @cancel="handleCancel">-->
+<!--              <img alt="example" style="width: 100%" :src="previewImage" />-->
+<!--            </a-modal>-->
+<!--          </a-form-item>-->
+<!--        </a-col>-->
       </a-row>
     </a-form>
   </a-modal>
@@ -184,7 +253,7 @@ export default {
     },
     setFormValues ({...dishes}) {
       this.rowId = dishes.id
-      let fields = ['name', 'content', 'rawMaterial', 'portion', 'unitPrice', 'status', 'heat', 'protein', 'laveNum', 'typeId']
+      let fields = ['name', 'content', 'rawMaterial', 'portion', 'unitPrice', 'status', 'heat', 'protein', 'laveNum', 'typeId', 'author', 'isbn', 'authorIntro', 'tag', 'numraters', 'average', 'binding', 'pages', 'publisher', 'originTitle', 'url', 'image', 'summary']
       let obj = {}
       Object.keys(dishes).forEach((key) => {
         if (key === 'images') {

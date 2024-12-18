@@ -8,24 +8,24 @@
             <a-col :md="6" :sm="24">
               <a-form-item
                 label="用户昵称"
-                :labelCol="{span: 4}"
-                :wrapperCol="{span: 18, offset: 2}">
+                :labelCol="{span: 5}"
+                :wrapperCol="{span: 18, offset: 1}">
                 <a-input v-model="queryParams.userName"/>
               </a-form-item>
             </a-col>
             <a-col :md="6" :sm="24">
               <a-form-item
                 label="图书类型"
-                :labelCol="{span: 4}"
-                :wrapperCol="{span: 18, offset: 2}">
+                :labelCol="{span: 5}"
+                :wrapperCol="{span: 18, offset: 1}">
                 <a-input v-model="queryParams.typeName"/>
               </a-form-item>
             </a-col>
             <a-col :md="6" :sm="24">
               <a-form-item
                 label="图书名称"
-                :labelCol="{span: 4}"
-                :wrapperCol="{span: 18, offset: 2}">
+                :labelCol="{span: 5}"
+                :wrapperCol="{span: 18, offset: 1}">
                 <a-input v-model="queryParams.firnitureName"/>
               </a-form-item>
             </a-col>
@@ -149,8 +149,8 @@ export default {
         dataIndex: 'firnitureName',
         ellipsis: true
       }, {
-        title: '图书类型',
-        dataIndex: 'typeName',
+        title: '作者姓名',
+        dataIndex: 'author',
         customRender: (text, row, index) => {
           if (text !== null) {
             return text
@@ -160,8 +160,8 @@ export default {
         },
         ellipsis: true
       }, {
-        title: '型号',
-        dataIndex: 'portion',
+        title: '出版社名称',
+        dataIndex: 'publisher',
         customRender: (text, row, index) => {
           if (text !== null) {
             return text
@@ -174,12 +174,12 @@ export default {
         title: '图书图片',
         dataIndex: 'firnitureImages',
         customRender: (text, record, index) => {
-          if (!record.firnitureImages) return <a-avatar shape="square" icon="user" />
+          if (!record.image) return <a-avatar shape="square" icon="user"/>
           return <a-popover>
             <template slot="content">
-              <a-avatar shape="square" size={132} icon="user" src={ 'http://127.0.0.1:9527/imagesWeb/' + record.firnitureImages } />
+              <a-avatar shape="square" size={132} icon="user" src={record.image}/>
             </template>
-            <a-avatar shape="square" icon="user" src={ 'http://127.0.0.1:9527/imagesWeb/' + record.firnitureImages } />
+            <a-avatar shape="square" icon="user" src={record.image}/>
           </a-popover>
         }
       }, {

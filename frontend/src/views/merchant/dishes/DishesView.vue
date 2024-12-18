@@ -8,26 +8,68 @@
     <div style="font-size: 13px;font-family: SimHei" v-if="dishesData !== null">
       <a-row style="padding-left: 24px;padding-right: 24px;">
         <a-col style="margin-bottom: 15px"><span style="font-size: 15px;font-weight: 650;color: #000c17">基础信息</span></a-col>
-        <a-col :span="8"><b>图书编号：</b>
-          {{ dishesData.code }}
+        <a-col :span="8"><b>作者姓名：</b>
+          {{ dishesData.author }}
         </a-col>
         <a-col :span="8"><b>图书名称：</b>
           {{ dishesData.name ? dishesData.name : '- -' }}
         </a-col>
-        <a-col :span="8"><b>原料：</b>
-          {{ dishesData.rawMaterial ? dishesData.rawMaterial : '- -' }}
+        <a-col :span="8"><b>ISBN号：</b>
+          {{ dishesData.isbn ? dishesData.isbn : '- -' }}
         </a-col>
       </a-row>
       <br/>
       <a-row style="padding-left: 24px;padding-right: 24px;">
-        <a-col :span="8"><b>型号：</b>
-          {{ dishesData.portion }}
+        <a-col :span="24"><b>作者简介：</b>
+          {{ dishesData.authorIntro ? dishesData.authorIntro : '- -' }}
         </a-col>
-        <a-col :span="8"><b>图书余量：</b>
-          {{ dishesData.laveNum }}
+      </a-row>
+      <br/>
+      <a-row style="padding-left: 24px;padding-right: 24px;">
+        <a-col :span="16"><b>图书标签：</b>
+          {{ dishesData.tag }}
         </a-col>
         <a-col :span="8"><b>价格：</b>
           {{ dishesData.unitPrice }} 元
+        </a-col>
+      </a-row>
+      <br/>
+      <a-row style="padding-left: 24px;padding-right: 24px;">
+        <a-col :span="8"><b>评价人数：</b>
+          {{ dishesData.numraters ? dishesData.numraters : '- -' }}
+        </a-col>
+        <a-col :span="8"><b>平均评分：</b>
+          {{ dishesData.average ? dishesData.average : '- -' }}
+        </a-col>
+        <a-col :span="8"><b>装帧类型：</b>
+          {{ dishesData.binding ? dishesData.binding : '- -' }}
+        </a-col>
+      </a-row>
+      <br/>
+      <a-row style="padding-left: 24px;padding-right: 24px;">
+        <a-col :span="8"><b>页数：</b>
+          {{ dishesData.pages ? dishesData.pages : '- -' }}
+        </a-col>
+        <a-col :span="8"><b>出版社名称：</b>
+          {{ dishesData.publisher ? dishesData.publisher : '- -' }}
+        </a-col>
+        <a-col :span="8"><b>原作标题：</b>
+          {{ dishesData.originTitle ? dishesData.originTitle : '- -' }}
+        </a-col>
+      </a-row>
+      <br/>
+      <a-row style="padding-left: 24px;padding-right: 24px;">
+        <a-col :span="12"><b>图书详情：</b>
+          {{ dishesData.url ? dishesData.url : '- -' }}
+        </a-col>
+        <a-col :span="12"><b>图书封面：</b>
+          {{ dishesData.image ? dishesData.image : '- -' }}
+        </a-col>
+      </a-row>
+      <br/>
+      <a-row style="padding-left: 24px;padding-right: 24px;">
+        <a-col :span="24"><b>图书摘要：</b>
+          {{ dishesData.summary ? dishesData.summary : '- -' }}
         </a-col>
       </a-row>
       <br/>

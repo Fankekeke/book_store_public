@@ -12,23 +12,23 @@
       <a-icon type="arrow-left" style="position: absolute;z-index: 999;color: red;font-size: 20px;margin: 15px" @click="home"/>
       <a-row style="height:100vh;font-family: SimHei">
         <a-col :span="15" style="height: 100%;">
-          <div style="width: 100%;height: 100%;box-shadow: 3px 3px 3px rgba(0, 0, 0, .2);color:#fff">
+          <div style="width: 100%;height: 100%;box-shadow: 3px 3px 3px rgba(0, 0, 0, .2);color:#fff;overflow-y: auto">
             <a-row :gutter="20" style="padding: 50px">
-              <a-col :span="8" v-for="(item, index) in dishesList" :key="index" style="margin-bottom: 15px">
+              <a-col :span="8" v-for="(item, index) in dishesList.slice((pagination.defaultCurrent - 1) * pagination.defaultPageSize,pagination.defaultCurrent * pagination.defaultPageSize )" :key="index" style="margin-bottom: 15px">
                 <div style="width: 100%;margin-bottom: 15px;text-align: left;box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;">
                   <a-card :bordered="false" hoverable>
-                    <a-carousel autoplay style="height: 150px;" v-if="item.images !== undefined && item.images !== ''">
-                      <div style="width: 100%;height: 150px" v-for="(item, index) in item.images.split(',')" :key="index">
-                        <img :src="'http://127.0.0.1:9527/imagesWeb/'+item" style="width: 100%;height: 250px">
+                    <a-carousel autoplay style="height: 250px;" v-if="item.image !== undefined && item.image !== ''">
+                      <div style="width: 100%;height: 150px">
+                        <img :src="item.image" style="width: 100%;height: 250px">
                       </div>
                     </a-carousel>
-                    <a-card-meta :title="item.name" :description="item.content.slice(0, 25)+'...'" style="margin-top: 10px"></a-card-meta>
+                    <a-card-meta :title="item.name" :description="item.summary.slice(0, 20)+'...'" style="margin-top: 10px"></a-card-meta>
                     <div style="font-size: 12px;font-family: SimHei;margin-top: 8px;margin-bottom: 5px">
                       <a-row>
                         <a-col :span="18">
                           <div>
-                            <span>{{ item.rawMaterial.slice(0, 10)+'...' }}</span> |
-                            <span  style="margin-left: 2px">{{ item.portion.slice(0, 15)+'...' }}</span>
+                            <span>{{ item.author.slice(0, 10)+'...' }}</span> |
+                            <span  style="margin-left: 2px">{{ item.tag.slice(0, 10)+'...' }}</span>
                           </div>
                           <div style="color: #f5222d; font-size: 13px;float: left;margin-top: 5px">{{ item.unitPrice }}元</div>
                         </a-col>
@@ -44,6 +44,7 @@
                   </a-card>
                 </div>
               </a-col>
+              <a-pagination :default-current="pagination.defaultCurrent" :defaultPageSize="pagination.defaultPageSize" :total="pagination.total" @change="pageChange" style="float: right"/>
             </a-row>
           </div>
         </a-col>
@@ -215,20 +216,17 @@ export default {
         title: '图片',
         dataIndex: 'images',
         customRender: (text, record, index) => {
-          if (!record.images) return <a-avatar shape="square" icon="user" />
+          if (!record.image) return <a-avatar shape="square" icon="user"/>
           return <a-popover>
             <template slot="content">
-              <a-avatar shape="square" size={132} icon="user" src={ 'http://127.0.0.1:9527/imagesWeb/' + record.images.split(',')[0] } />
+              <a-avatar shape="square" size={132} icon="user" src={record.image}/>
             </template>
-            <a-avatar shape="square" icon="user" src={ 'http://127.0.0.1:9527/imagesWeb/' + record.images.split(',')[0] } />
+            <a-avatar shape="square" icon="user" src={record.image}/>
           </a-popover>
         }
       }, {
         title: '购买数量',
         dataIndex: 'amount'
-      }, {
-        title: '热量',
-        dataIndex: 'heat'
       }, {
         title: '单价',
         dataIndex: 'unitPrice'
@@ -285,6 +283,11 @@ export default {
   },
   data () {
     return {
+      pagination: {
+        defaultCurrent: 1,
+        defaultPageSize: 6,
+        total: 0
+      },
       childrenDrawer: false,
       orderAddInfo: null,
       addressId: null,
@@ -294,6 +297,7 @@ export default {
       totalPrice: 0,
       totalHeat: 0,
       dishesList: [],
+      dishesCurrentList: [],
       evaluateList: [],
       checkList: [],
       evaluateInfo: null,
@@ -363,6 +367,9 @@ export default {
     }
   },
   methods: {
+    pageChange (page, pageSize) {
+      this.pagination.defaultCurrent = page
+    },
     collectAdd (row) {
       this.$post(`/cos/collect-info`, {userId: this.currentUser.userId, furnitureId: row.id, merchantId: this.orderData.id}).then((r) => {
         this.$message.success('收藏成功')
@@ -498,6 +505,7 @@ export default {
     selectDishesByMerchant (merchantId) {
       this.$get(`/cos/dishes-info/selectDishesByMerchant/${merchantId}`).then((r) => {
         this.dishesList = r.data.data
+        this.pagination.total = this.dishesList.length
       })
     },
     selectMerchantEvaluate (merchantId) {
@@ -634,8 +642,8 @@ export default {
   }
   .ant-carousel >>> .slick-slide {
     text-align: center;
-    height: 150px;
-    line-height: 150px;
+    height: 250px;
+    line-height: 250px;
     overflow: hidden;
   }
 </style>

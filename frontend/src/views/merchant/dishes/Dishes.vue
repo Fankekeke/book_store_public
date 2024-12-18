@@ -135,15 +135,26 @@ export default {
         dataIndex: 'name',
         ellipsis: true
       }, {
+        title: '装帧类型',
+        dataIndex: 'binding',
+        customRender: (text, row, index) => {
+          if (text !== null) {
+            return text
+          } else {
+            return '- -'
+          }
+        },
+        ellipsis: true
+      }, {
         title: '图书图片',
         dataIndex: 'images',
         customRender: (text, record, index) => {
-          if (!record.images) return <a-avatar shape="square" icon="user" />
+          if (!record.image) return <a-avatar shape="square" icon="user"/>
           return <a-popover>
             <template slot="content">
-              <a-avatar shape="square" size={132} icon="user" src={ 'http://127.0.0.1:9527/imagesWeb/' + record.images.split(',')[0] } />
+              <a-avatar shape="square" size={132} icon="user" src={record.image}/>
             </template>
-            <a-avatar shape="square" icon="user" src={ 'http://127.0.0.1:9527/imagesWeb/' + record.images.split(',')[0] } />
+            <a-avatar shape="square" icon="user" src={record.image}/>
           </a-popover>
         }
       }, {
@@ -170,8 +181,8 @@ export default {
           </a-popover>
         }
       }, {
-        title: '原料',
-        dataIndex: 'rawMaterial',
+        title: '作者姓名',
+        dataIndex: 'author',
         customRender: (text, row, index) => {
           if (text !== null) {
             return text
@@ -181,8 +192,8 @@ export default {
         },
         ellipsis: true
       }, {
-        title: '型号',
-        dataIndex: 'portion',
+        title: 'ISBN号',
+        dataIndex: 'isbn',
         customRender: (text, row, index) => {
           if (text !== null) {
             return text
@@ -200,8 +211,7 @@ export default {
           } else {
             return '- -'
           }
-        },
-        ellipsis: true
+        }
       }, {
         title: '价格',
         dataIndex: 'unitPrice',
@@ -211,7 +221,8 @@ export default {
           } else {
             return '- -'
           }
-        }
+        },
+        ellipsis: true
       }, {
         title: '状态',
         dataIndex: 'status',
@@ -226,8 +237,9 @@ export default {
           }
         }
       }, {
-        title: '销量',
-        dataIndex: 'saleNum',
+        title: '图书标签',
+        dataIndex: 'tag',
+        ellipsis: true,
         customRender: (text, row, index) => {
           if (text !== null) {
             return text

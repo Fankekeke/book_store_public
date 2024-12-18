@@ -309,7 +309,7 @@ public class OrderInfoServiceImpl extends ServiceImpl<OrderInfoMapper, OrderInfo
             if (CollectionUtil.isNotEmpty(dishesMap) && dishesMap.get(orderItemInfo.getDishesId()) != null) {
                 DishesInfo dishesInfo = dishesMap.get(orderItemInfo.getDishesId());
                 orderItemInfo.setDishesName(dishesInfo.getName());
-                orderItemInfo.setImages(dishesInfo.getImages());
+                orderItemInfo.setImages(dishesInfo.getImage());
             }
         }
         result.put("orderItem", orderItemInfoList);
@@ -451,7 +451,7 @@ public class OrderInfoServiceImpl extends ServiceImpl<OrderInfoMapper, OrderInfo
             if (CollectionUtil.isNotEmpty(dishesMap) && dishesMap.get(orderItemInfo.getDishesId()) != null) {
                 DishesInfo dishesInfo = dishesMap.get(orderItemInfo.getDishesId());
                 orderItemInfo.setDishesName(dishesInfo.getName());
-                orderItemInfo.setImages(dishesInfo.getImages());
+                orderItemInfo.setImages(dishesInfo.getImage());
             }
         }
         result.put("orderItem", orderItemInfoList);
