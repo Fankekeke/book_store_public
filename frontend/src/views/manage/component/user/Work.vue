@@ -1,7 +1,7 @@
 <template>
   <div style="background:#ECECEC; padding:30px;margin-top: 30px;margin-bottom: 30px">
     <div style="height: 450px;">
-      <div style="height: 350px;background: url(../static/img/interior-3530343_1920.jpg) no-repeat center;padding: 50px">
+      <div style="height: 350px;background: url(../static/img/interior-3530343_1920.jpg) center;padding: 50px;background-size: cover">
         <div style="font-size: 35px;font-weight: 500;color: white;font-family: SimHei">欢迎选购 商家配送~</div>
         <div style="font-size: 22px;font-weight: 500;color: white;font-family: SimHei">开始选购</div>
         <div style="height: 180px;margin-top: 100px">

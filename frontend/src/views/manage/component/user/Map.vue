@@ -13,10 +13,29 @@
       <a-row style="height:100vh;font-family: SimHei">
         <a-col :span="15" style="height: 100%;">
           <div style="width: 100%;height: 100%;box-shadow: 3px 3px 3px rgba(0, 0, 0, .2);color:#fff;overflow-y: auto">
+            <div style="text-align: center;margin-top: 20px">
+              <a-row>
+                <a-col :span="12">
+                  <a-radio-group v-model="typeId" @change="onChange">
+                    <a-radio-button value="-1">全部</a-radio-button>
+                    <a-radio-button :key="index" :value="item.id" v-for="(item, index) in typeList">
+                      {{ item.name }}
+                    </a-radio-button>
+                  </a-radio-group>
+                </a-col>
+                <a-col :span="8">
+                  <a-input-search placeholder="搜索图书" enter-button @search="onSearch" />
+                </a-col>
+              </a-row>
+            </div>
             <a-row :gutter="20" style="padding: 50px">
+              <div style="margin-top: 150px;text-align: center"  v-if="dishesList.length === 0">
+                <a-icon type="alert" theme="twoTone" style="font-size: 75px"/>
+                <h1 style="margin-top: 20px">暂无图书</h1>
+              </div>
               <a-col :span="8" v-for="(item, index) in dishesList.slice((pagination.defaultCurrent - 1) * pagination.defaultPageSize,pagination.defaultCurrent * pagination.defaultPageSize )" :key="index" style="margin-bottom: 15px">
                 <div style="width: 100%;margin-bottom: 15px;text-align: left;box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;">
-                  <a-card :bordered="false" hoverable>
+                  <a-card :bordered="false" hoverable  @click="dishesViewOpen(item)">
                     <a-carousel autoplay style="height: 250px;" v-if="item.image !== undefined && item.image !== ''">
                       <div style="width: 100%;height: 150px">
                         <img :src="item.image" style="width: 100%;height: 250px">
@@ -34,10 +53,10 @@
                         </a-col>
                         <a-col :span="3" style="height: 100%;text-align: right">
                           <a-icon type="heart" v-if="checkCollect(item.id)" style="font-size: 20px;margin-right: 5px;margin-top: 10px;cursor: pointer;color: red" @click="collectDel(item)"/>
-                          <a-icon type="heart" v-else style="font-size: 20px;margin-right: 5px;margin-top: 10px;cursor: pointer;" @click="collectAdd(item)"/>
+                          <a-icon type="heart" v-else style="font-size: 20px;margin-right: 5px;margin-top: 10px;cursor: pointer;" @click.stop="collectAdd(item)"/>
                         </a-col>
                         <a-col :span="3" style="height: 100%;text-align: right">
-                          <a-icon type="plus-square" theme="twoTone" style="font-size: 20px;margin-right: 5px;margin-top: 10px;cursor: pointer;" @click="dishesAdd(item)" v-show="nextFlag == 1"/>
+                          <a-icon type="plus-square" theme="twoTone" style="font-size: 20px;margin-right: 5px;margin-top: 10px;cursor: pointer;" @click.stop="dishesAdd(item)" v-show="nextFlag == 1"/>
                         </a-col>
                       </a-row>
                     </div>
@@ -187,14 +206,21 @@
         <a-button @click="orderPay" type="primary" v-if="nextFlag == 2">支付</a-button>
       </div>
     </div>
+    <dishes-view
+      @close="handledishesViewClose"
+      :dishesShow="dishesView.visiable"
+      :dishesData="dishesView.data">
+    </dishes-view>
   </a-drawer>
 </template>
 
 <script>
 import baiduMap from '@/utils/map/baiduMap'
+import dishesView from './DishesView.vue'
 import {mapState} from 'vuex'
 export default {
   name: 'Map',
+  components: {dishesView},
   props: {
     orderShow: {
       type: Boolean,
@@ -254,12 +280,12 @@ export default {
         title: '图片',
         dataIndex: 'images',
         customRender: (text, record, index) => {
-          if (!record.images) return <a-avatar shape="square" icon="user" />
+          if (!record.image) return <a-avatar shape="square" icon="user"/>
           return <a-popover>
             <template slot="content">
-              <a-avatar shape="square" size={132} icon="user" src={ 'http://127.0.0.1:9527/imagesWeb/' + record.images.split(',')[0] } />
+              <a-avatar shape="square" size={132} icon="user" src={record.image}/>
             </template>
-            <a-avatar shape="square" icon="user" src={ 'http://127.0.0.1:9527/imagesWeb/' + record.images.split(',')[0] } />
+            <a-avatar shape="square" icon="user" src={record.image}/>
           </a-popover>
         }
       }, {
@@ -283,11 +309,16 @@ export default {
   },
   data () {
     return {
+      dishesView: {
+        visiable: false,
+        data: null
+      },
       pagination: {
         defaultCurrent: 1,
         defaultPageSize: 6,
         total: 0
       },
+      typeId: null,
       childrenDrawer: false,
       orderAddInfo: null,
       addressId: null,
@@ -297,6 +328,8 @@ export default {
       totalPrice: 0,
       totalHeat: 0,
       dishesList: [],
+      dishesBackList: [],
+      typeList: [],
       dishesCurrentList: [],
       evaluateList: [],
       checkList: [],
@@ -345,12 +378,14 @@ export default {
       if (value) {
         this.collectList = []
         this.checkList = []
+        this.typeList = []
         this.addressId = null
         this.addressList = []
         this.type = '0'
         this.nextFlag = 1
         this.totalPrice = 0
         this.totalHeat = 0
+        this.selectTypeList()
         this.selectDishesByMerchant(this.orderData.id)
         this.selectMerchantEvaluate(this.orderData.id)
         this.selectCollectByUser(this.orderData.id)
@@ -367,6 +402,40 @@ export default {
     }
   },
   methods: {
+    onSearch (value) {
+      if (value) {
+        this.dishesList = this.dishesList.filter(item => item.name.indexOf(value) > -1)
+        this.pagination.total = this.dishesList.length
+      } else {
+        this.dishesList = this.dishesBackList
+        this.pagination.total = this.dishesBackList.length
+      }
+    },
+    onChange (e) {
+      if (e.target.value == -1) {
+        this.dishesList = this.dishesBackList
+        this.pagination.total = this.dishesBackList.length
+        return false
+      }
+      if (e.target.value && this.dishesBackList) {
+        console.log(this.dishesBackList)
+        let dishesList = this.dishesBackList.filter(item => item.typeId == e.target.value)
+        this.dishesList = dishesList
+        this.pagination.total = this.dishesList.length
+      }
+    },
+    selectTypeList () {
+      this.$get(`/cos/firniture-type-info/list`).then((r) => {
+        this.typeList = r.data.data
+      })
+    },
+    dishesViewOpen (row) {
+      this.dishesView.data = row
+      this.dishesView.visiable = true
+    },
+    handledishesViewClose () {
+      this.dishesView.visiable = false
+    },
     pageChange (page, pageSize) {
       this.pagination.defaultCurrent = page
     },
@@ -505,6 +574,7 @@ export default {
     selectDishesByMerchant (merchantId) {
       this.$get(`/cos/dishes-info/selectDishesByMerchant/${merchantId}`).then((r) => {
         this.dishesList = r.data.data
+        this.dishesBackList = r.data.data
         this.pagination.total = this.dishesList.length
       })
     },
