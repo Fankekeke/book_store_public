@@ -1,4 +1,10 @@
 /backend/target/
 /backend/.idea/
+/backend/src/main/resources/mapper/cos
+/backend/src/main/java/cc/mrbird/febs/cos
+
+
 /frontend/node_modules/
 /frontend/.idea/
+/frontend/src/views/manage
+/frontend/src/views/user
