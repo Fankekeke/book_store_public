@@ -1,17 +1,17 @@
-### 基于SpringBoot + Vue的图书商城系统.
+![](https://img.shields.io/badge/License-MIT-blue.svg)
 
-图书商城系统 图书销售系统 网上书店系统 图书电商系统 书店管理系统
+![](https://img.shields.io/badge/Version-1.0.0-brightgreen.svg)
 
-##### 管理员： 
-用户收货地址，公告管理，图书管理，图书类型，订单评价，积分兑换，物品积分，会员积分，商家管理，商家会员，订单管理，员工管理，用户管理，帖子审核，数据统计
+![](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)
 
-##### 商家： 
-数据统计，图书管理，订单评价，订单管理，员工管理，商家会员，商家信息管理
+# 基于 SpringBoot + Vue  的图书商城系统
 
-##### 用户：
-用户注册，个人信息修改，收货地址，订单下单，订单评价，图书收藏，帖子发布与评论，论坛发帖，支付为支付宝沙盒支付
+在线购书 · 积分兑换 · 会员折扣 · 论坛社区 | 面向多商家图书销售、用户互动与平台运营的一体化商城系统
+
+本项目是一套基于 **Spring Boot + Vue** 的图书商城系统，采用前后端分离架构，覆盖 **管理员、商家、用户** 三类核心角色。系统围绕"商家入驻 → 图书上架 → 用户浏览 → 购物车结算 → 订单支付 → 评价互动 → 积分兑换 → 论坛社区 → 数据统计"的完整业务闭环设计，打通图书电商全流程，并创新性地融入论坛社区与会员积分体系，构建读者交流平台。
 
 #### 安装环境
+️**注意**：请确保您的开发环境已安装以下依赖。
 
 JAVA 环境 
 
@@ -19,24 +19,161 @@ Node.js环境 [https://nodejs.org/en/] 选择14.17
 
 Yarn 打开cmd， 输入npm install -g yarn !!!必须安装完毕nodejs
 
-Mysql 数据库 [https://blog.csdn.net/qq_40303031/article/details/88935262] 一定要把账户和密码记住
+Mysql 数据库 一定要把账户和密码记住
 
 redis
 
-Idea 编译器 [https://blog.csdn.net/weixin_44505194/article/details/104452880]
+Idea 编译器
 
-WebStorm OR VScode 编译器 [https://www.jianshu.com/p/d63b5bae9dff]
+WebStorm OR VScode 编译器
 
 #### 采用技术及功能
 
 后端：SpringBoot、MybatisPlus、MySQL、Redis、
 前端：Vue、Apex、Antd、Axios
 
-平台前端：vue(框架) + vuex(全局缓存) + rue-router(路由) + axios(请求插件) + apex(图表)  + antd-ui(ui组件)
+平台前端：vue(框架) + vuex(全局缓存) + rue-router(路由) + axios(请求插件) + apex(图表)  + antd-ui(ui组件) + 百度地图 API
 
 平台后台：springboot(框架) + redis(缓存中间件) + shiro(权限中间件) + mybatisplus(orm) + restful风格接口 + mysql(数据库)
 
 开发环境：windows10 or windows7 ， vscode or webstorm ， idea + lambok
+
+---
+
+## 核心特性
+
+- **多商家图书销售**：支持商家自主注册入驻、资质审核、店铺信息管理，平台统一管控商家资质与运营规范，形成"平台统筹 + 商家自营"的双层运营模式。
+- **积分兑换体系**：用户通过购书消费获取积分，积分可兑换平台商品，形成"消费 → 积分 → 兑换 → 复购"的增长闭环。
+- **会员折扣机制**：根据会员等级享受不同折扣优惠，提升用户粘性与复购率。
+- **论坛社区**：用户可发布读书心得、书评帖子，评论互动，管理员审核帖子内容，构建读者交流社区。
+- **支付宝沙盒支付**：集成支付宝沙盒环境完成支付模拟，适合开发测试阶段。
+---
+
+## 适用场景
+
+- 多商家在线图书商城平台
+- 校园/社区图书销售系统
+- 读书社区 + 图书电商
+- 计算机类毕业设计/课程设计项目
+---
+
+## 功能模块概览
+
+## 管理员端
+
+管理员为平台运营中枢，负责全局管控：
+
+### 基础管理
+
+- **用户管理**：管理注册用户，包括用户ID、昵称、手机号、注册时间、积分余额、会员等级、账户状态，支持账户冻结/解冻。
+- **用户收货地址**：查看用户收货地址列表（省市区、详细地址、联系人、手机号），支持异常地址清理。
+- **员工管理**：管理平台运营员工，包括员工姓名、工号、角色（内容审核/订单管理/商家管理）、账户状态。
+- **公告管理**：发布平台公告，包括公告标题、内容、类型（活动通知/系统维护/新书上架）、发布时间、置顶状态。
+
+### 商家与图书
+
+- **商家管理**：管理全平台商家店铺，包括店铺名称、联系人、联系电话、店铺地址、营业时间、店铺状态，支持店铺冻结/解冻与入驻审核。
+- **图书管理**：管理全平台图书，包括书名、作者、出版社、ISBN、所属商家、分类、价格、库存、封面图片、详情描述、上下架状态，支持批量操作。
+- **图书类型**：管理图书分类体系，支持多级分类（如文学/科技/教育/少儿/社科），设置分类排序与状态。
+
+### 订单与评价
+
+- **订单管理**：查看全平台订单，包括订单号、用户、商家、图书明细、订单金额、支付状态、配送状态、订单状态（待支付/已支付/待发货/配送中/已完成/已取消/已退款），支持订单干预与退款处理。
+- **订单评价**：查看用户对订单/图书的评价，包括评分、评价内容、评价图片，支持屏蔽违规评价。
+
+### 积分与社区
+
+- **物品积分**：配置可兑换物品的积分值，包括物品名称、所需积分、库存、兑换规则。
+- **积分兑换**：管理积分兑换记录，查看用户兑换历史，处理兑换订单的发货与状态更新。
+- **会员积分**：查看全平台会员积分分布，支持手动调整用户积分（如活动赠送、补偿等）。
+- **帖子审核**：审核用户发布的论坛帖子，包括标题、内容、图片，支持通过/拒绝操作，维护社区内容质量。
+
+### 数据统计
+
+- **数据统计**：综合数据看板，展示平台总销售额、订单量、用户数、商家数、热门图书排行、积分兑换趋势等，支持按时间段筛选与图表可视化。
+
+## 商家端
+
+商家通过 Web 后台管理店铺运营：
+
+### 账户与店铺
+
+- **注册/登录**：商家进行注册、登录到商家端口。
+- **商家信息管理**：维护店铺基本信息，包括店铺名称、Logo、简介、联系电话、营业时间、配送范围。
+- **员工管理**：管理本店员工，包括员工姓名、账号、角色（客服/库管/运营）、权限分配。
+
+### 图书管理
+
+- **图书管理**：管理本店图书，包括图书上架/下架、价格调整、库存管理、封面图片上传、详情富文本编辑。
+
+### 订单与评价
+
+- **订单管理**：查看本店订单，包括待发货、配送中、已完成订单，支持发货、标记配送中/已完成等操作，查看顾客消费历史记录。
+- **订单评价**：查看用户对本店订单的评价，支持回复评价，维护店铺口碑。
+
+### 会员与积分
+
+- **商家会员**：管理本店会员用户，查看会员等级与消费记录。
+- **会员积分调整**：商家可手动调整本店会员用户的积分（如活动赠送、补偿等）。
+
+### 数据统计
+
+- **数据统计**：店铺数据看板，展示本店销售额、订单量、热门图书排行、用户评价统计，支持按时间段筛选。
+
+## 用户端
+
+用户通过 Web 端进行购书与社区互动：
+
+### 账户与个人
+
+- **用户注册/登录**：用户进行注册、登录到用户端口。
+- **个人信息修改**：维护个人基本信息，包括昵称、头像、手机号、密码修改。
+- **收货地址管理**：管理个人收货地址，支持新增、编辑、删除、设置默认地址，支持省市区三级联动选择。
+
+### 购书与支付
+
+- **首页模块**：轮播图推荐热门图书，支持商户查询、图书分类查询、图书搜索，支持关键词搜索与分类筛选。
+- **购物车模块**：将心仪图书加入购物车，支持修改数量、删除图书、清空购物车，结算时自动计算总价。
+- **会员折扣**：结算时根据用户会员等级自动应用相应折扣，享受会员专属优惠。
+- **订单下单**：选择收货地址，确认订单信息，提交订单。
+- **支付宝沙盒支付**：支持支付宝沙盒支付，模拟真实支付流程。
+
+### 评价与社区
+
+- **订单评价**：对已消费的图书进行评价，包括评分、评价内容、图片上传，为其他用户提供参考。
+- **图书收藏**：收藏感兴趣的图书，方便日后快速查找与购买。
+- **论坛发帖**：发布读书心得、书评帖子，管理个人帖子（编辑、删除）。
+- **帖子评论**：浏览论坛帖子并发表评论，与其他读者互动交流。
+
+### 积分
+
+- **积分兑换**：通过购买商品获取对应积分，浏览积分商城，使用积分兑换商品。
+- **积分兑换记录管理**：查看个人积分兑换历史记录，包括兑换物品、消耗积分、兑换时间、配送状态。
+
+---
+
+## 项目结构
+
+```text
+pharmacy-dispensing-system/
+├── backend/            # 后端 API 服务
+│   ├── src/
+│   │   ├── controllers/  # 控制器
+│   │   ├── models/       # 数据模型
+│   │   ├── routes/       # 路由
+│   │   └── services/     # 业务逻辑
+│   └── package.json
+├── frontend/           # 前端 Web 应用
+│   ├── src/
+│   │   ├── views/      # 页面视图
+│   │   ├── components/ # 公共组件
+│   │   └── store/      # 状态管理
+│   └── package.json
+├── docs/               # 项目文档与 API 接口说明
+├── LICENSE
+└── README.md
+```
+---
 
 
 #### 前台启动方式
@@ -46,33 +183,27 @@ WebStorm OR VScode 编译器 [https://www.jianshu.com/p/d63b5bae9dff]
 #### 默认后台账户密码
 [管理员]
 admin
-1234qwer
-
-[商家管理员]
-shangjia
-1234qwer
+123456
 
 [用户]
 fank
-1234qwer
+123456
 
 #### 项目截图
-
 |  |  |
 |---------------------|---------------------|
-| ![](https://fank-bucket-oss.oss-cn-beijing.aliyuncs.com/img/1734609137789.png) | ![](https://fank-bucket-oss.oss-cn-beijing.aliyuncs.com/img/1734609621006.png) |
-| ![](https://fank-bucket-oss.oss-cn-beijing.aliyuncs.com/img/1734609812940.png) | ![](https://fank-bucket-oss.oss-cn-beijing.aliyuncs.com/img/1734609606547.png) |
-| ![](https://fank-bucket-oss.oss-cn-beijing.aliyuncs.com/img/1734609800803.png) | ![](https://fank-bucket-oss.oss-cn-beijing.aliyuncs.com/img/1734609591264.png) |
-| ![](https://fank-bucket-oss.oss-cn-beijing.aliyuncs.com/img/1734609786260.png) | ![](https://fank-bucket-oss.oss-cn-beijing.aliyuncs.com/img/1734609576709.png) |
-| ![](https://fank-bucket-oss.oss-cn-beijing.aliyuncs.com/img/1734609761043.png) | ![](https://fank-bucket-oss.oss-cn-beijing.aliyuncs.com/img/1734609496851.png) |
-| ![](https://fank-bucket-oss.oss-cn-beijing.aliyuncs.com/img/1734609748528.png) | ![](https://fank-bucket-oss.oss-cn-beijing.aliyuncs.com/img/1734609461707.png) |
-| ![](https://fank-bucket-oss.oss-cn-beijing.aliyuncs.com/img/1734609726179.png) | ![](https://fank-bucket-oss.oss-cn-beijing.aliyuncs.com/img/1734609435243.png) |
-| ![](https://fank-bucket-oss.oss-cn-beijing.aliyuncs.com/img/1734609707930.png) | ![](https://fank-bucket-oss.oss-cn-beijing.aliyuncs.com/img/1734609421175.png) |
-| ![](https://fank-bucket-oss.oss-cn-beijing.aliyuncs.com/img/1734609697004.png) | ![](https://fank-bucket-oss.oss-cn-beijing.aliyuncs.com/img/1734609389056.png) |
-| ![](https://fank-bucket-oss.oss-cn-beijing.aliyuncs.com/img/1734609684387.png) | ![](https://fank-bucket-oss.oss-cn-beijing.aliyuncs.com/img/1734609198992.png) |
-| ![](https://fank-bucket-oss.oss-cn-beijing.aliyuncs.com/img/1734609672996.png) | ![](https://fank-bucket-oss.oss-cn-beijing.aliyuncs.com/img/1734609184518.png) |
-| ![](https://fank-bucket-oss.oss-cn-beijing.aliyuncs.com/img/1734609632240.png) | ![](https://fank-bucket-oss.oss-cn-beijing.aliyuncs.com/img/1734609164759.png) |
-| ![](https://fank-bucket-oss.oss-cn-beijing.aliyuncs.com/work/936e9baf53eb9a217af4f89c616dc19.png) |
+| ![](./assets/image%20(1).png) | ![](./assets/image%20(2).png) |
+| ![](./assets/image%20(3).png) | ![](./assets/image%20(4).png) |
+| ![](./assets/image%20(5).png) | ![](./assets/image%20(6).png) |
+| ![](./assets/image%20(7).png) | ![](./assets/image%20(8).png) |
+| ![](./assets/image%20(9).png) | ![](./assets/image%20(10).png) |
+| ![](./assets/image%20(11).png) | ![](./assets/image%20(12).png) |
+| ![](./assets/image%20(13).png) | ![](./assets/image%20(14).png) |
+| ![](./assets/image%20(15).png) | ![](./assets/image%20(16).png) |
+| ![](./assets/image%20(17).png) | ![](./assets/image%20(18).png) |
+| ![](./assets/image%20(19).png) | ![](./assets/image%20(20).png) |
+| ![](./assets/image%20(21).png) | ![](./assets/image%20(22).png) |
+| ![](./assets/image%20(23).png) | ![](./assets/image%20(24).png) |
 
 #### 演示视频
 
@@ -90,7 +221,10 @@ WeChat: `Storm_Berserker`
 
 > 项目部署调试不好包退！功能逻辑没讲明白包退！
 
+<div align=center><img align="center" src="./assets/product_word.png" alt="fankekeke" /></div>
+
 #### 其它资源
+[2026年-答辩顺利通过-客户评价🀄](https://berserker287.github.io/2026/06/29/2026%E5%B9%B4%E7%AD%94%E8%BE%A9%E9%A1%BA%E5%88%A9%E9%80%9A%E8%BF%87/)
 
 [2025年-答辩顺利通过-客户评价🍜](https://berserker287.github.io/2025/06/18/2025%E5%B9%B4%E7%AD%94%E8%BE%A9%E9%A1%BA%E5%88%A9%E9%80%9A%E8%BF%87/)
 
@@ -114,4 +248,8 @@ WeChat: `Storm_Berserker`
 
 More info: [悲伤的橘子树](https://berserker287.github.io/)
 
-<p><img align="center" src="https://fank-bucket-oss.oss-cn-beijing.aliyuncs.com/img/%E5%90%88%E4%BD%9C%E7%89%A9%E6%96%99%E6%A0%B7%E5%BC%8F%20(3).png" alt="fankekeke" /></p>
+<div align="center"><img align="center" src="./assets/chat_qr_code.png" alt="fankekeke" width=250 /></div>
+
+<p><img align="center" src="./assets/wechat_group.png" alt="fankekeke" /></p>
+
+**感谢查看**
